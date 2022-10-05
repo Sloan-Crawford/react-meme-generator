@@ -1,0 +1,48 @@
+Loading Process:
+
+1. when the app loads for the first time:
+- API call to image flip 
+- returns an array of 100 meme images that are the most popular at that time
+
+2. clicking the 'get a new meme image button':
+- radomly selects one of those 100 images
+- displays the text from top and bottom inputs on top of the image
+
+To accomplish this:
+
+1. Event listeners:
+- one way is to add an event listener in JS:
+button.addEventListener("click", function(){
+ logic
+})
+- another way is with onClick in html file:
+<button onclick="function()">Click Me</button>
+
+-this is similar to how it happens in React with minor syntax differences:
+<button onClick={clickFunctionRef}>Click Me</button>
+-reemember to define the function above the return block within the component and only use a reference to the funtion in the button. Otherwise it runs clickFunction right away.
+
+
+React takes the JSX element above which returns a plain js object describing the DOM element that should be created by React and whatever properties or attributes that have been added (like onClick) inside the JSX are directly accessing the equivalent properties in js.
+
+example component with an event listener:
+
+export default function MouseEvents() {
+ function handleOnMouseOver() {
+  console.log("mouseOver")
+ }
+
+ return (
+  <div>
+   <button onMouseOver={handleOnMouseOver}> MouseOver Me</button>
+  </div>
+ )
+}
+
+Challenge in React: updating UI. When does it happen?
+- we can update a variable that will then replace what we have on screen with a new value.
+- when does the return run again with updated values for its elements? right now, only once.
+- React is declarative so you cant just select the element and change it within the function.
+- the benefits of React is that all we have to do is update our data and React will 'react' to that change and update our UI to display what has changed in the data.
+- we just need to make sure the data is updated correctly.
+- so we need to access STATE. State allows us to hook into the component and update it.
