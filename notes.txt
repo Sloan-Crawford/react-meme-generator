@@ -1,4 +1,4 @@
-Loading Process:
+Goals:
 
 1. when the app loads for the first time:
 - API call to image flip 
@@ -15,12 +15,12 @@ To accomplish this:
 button.addEventListener("click", function(){
  logic
 })
-- another way is with onClick in html file:
+- another way is with onclick in html file:
 <button onclick="function()">Click Me</button>
 
 -this is similar to how it happens in React with minor syntax differences:
 <button onClick={clickFunctionRef}>Click Me</button>
--reemember to define the function above the return block within the component and only use a reference to the funtion in the button. Otherwise it runs clickFunction right away.
+-reemember to define the function above the return block within the component and only use a reference to the funtion in the button. Otherwise it runs clickFunctionRef right away.
 
 
 React takes the JSX element above which returns a plain js object describing the DOM element that should be created by React and whatever properties or attributes that have been added (like onClick) inside the JSX are directly accessing the equivalent properties in js.
@@ -39,10 +39,70 @@ export default function MouseEvents() {
  )
 }
 
-Challenge in React: updating UI. When does it happen?
+Challenge in React: updating the UI. When does it happen?
 - we can update a variable that will then replace what we have on screen with a new value.
 - when does the return run again with updated values for its elements? right now, only once.
-- React is declarative so you cant just select the element and change it within the function.
+- React is declarative so you can't just select the element & change it within the function.
 - the benefits of React is that all we have to do is update our data and React will 'react' to that change and update our UI to display what has changed in the data.
 - we just need to make sure the data is updated correctly.
-- so we need to access STATE. State allows us to hook into the component and update it.
+- so we need to access STATE. State allows us to hook into the component and update it...
+
+Props vs. State
+
+Props:
+- properties being passed into a component to configure it (like params for functions).
+- a component receiving props is not allowed to modify those props (they are immutabale).
+
+State:
+- values that are managed by a component (like varialbes declared inside a function).
+- any time we have changing values that should be saved/displayed, likely we're using state.
+- values that components maintain between render cycles.
+
+useState()
+
+- useState does exactly what it says—it allows us to use stateful values in function components.
+- useState is used instead of a simple variable because when state is updated, our component re-renders, usually to display that updated value.
+- Like all hooks, we call useState at the top of our component and can pass it an initial value to put on its state variable.
+- We use array destructuring on the value returned from useState to access (1) the stored state and (2) a function to update that state.
+
+syntax:
+import { useState } from 'react';
+
+function MyComponent() {
+  const [stateValue, setStateValue] = useState(initialValue);
+}
+
+In the above example, we are calling the useState function on the right. At the same time on the left, we are destructuring the array the we get when we call useState. We get back the  stored state value and the function that updates the state and can work with them separately.
+
+count + 1 - good!
+count++ - never! it is short for count = count + 1 and we never want to change state directly
+
+when using old state value to determine new state value:
+- best practice is to use a callback function as a parameter to our setter function.
+- this callback function should receive the old value of state as its parameter.
+- this callback function should return the new value we want state to be.
+- convention is to use prevStateValue and an arrow function like in add() and subtract():
+
+import React, { useState } from "react"
+
+export default function App() {
+    const [count, setCount] = useState(0)
+    
+    function add() {
+        setCount(prevCount => prevCount + 1)
+    }
+    
+    function subtract() {
+        setCount(prevCount => prevCount - 1)
+    }
+    
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={subtract}>–</button>
+            <div className="counter--count">
+                <h1>{count}</h1>
+            </div>
+            <button className="counter--plus" onClick={add}>+</button>
+        </div>
+    )
+}
