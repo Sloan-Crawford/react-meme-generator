@@ -19,11 +19,11 @@ Have fun with this dynamic meme generator built with React.js.
 - Utilization of professional folder organization with src components, context, data, hooks, pages and utilities.
 - Clear, maintainable, and scalable code with responsive layout and architecture
 
-### More projects by Sloan Crawford: [Portfolio](https://sloan-crawford-professional-portfolio.netlify.app/)
+### Demo More projects by Sloan Crawford on his [Portfolio Website](https://sloan-crawford-professional-portfolio.netlify.app/)
 
-**Notes**:
+## **Notes**:
 
-**Goals**
+### **Goals**
 
 1. when the app loads for the first time:
 
@@ -35,7 +35,7 @@ Have fun with this dynamic meme generator built with React.js.
 - randomly selects one of those 100 images
 - displays the text from top and bottom inputs on top of the image
 
-**Guide to accomplish this:**
+### Guide to accomplish this:
 
 1. Event listeners:
 
@@ -56,7 +56,8 @@ button.addEventListener("click", function(){
 
 React takes the JSX element above which returns a plain js object describing the DOM element that should be created by React and whatever properties or attributes that have been added (like onClick) inside the JSX are directly accessing the equivalent properties in js.
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 a component with an event listener:
 
 ```
@@ -82,7 +83,7 @@ Challenge in React: updating the UI. When does it happen?
 - we just need to make sure the data is updated correctly.
 - so we need to access STATE. State allows us to hook into the component and update it...
 
-**Props vs. State**
+### **Props vs. State**
 
 **_Props:_**
 
@@ -102,7 +103,8 @@ Challenge in React: updating the UI. When does it happen?
 - Like all hooks, we call useState at the top of our component and can pass it an initial value to put on its state variable.
 - We use array destructuring on the value returned from useState to access (1) the stored state and (2) a function to update that state.
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 useState() syntax:
 
 ```
@@ -126,7 +128,8 @@ when using old state value to determine new state value:
 - this guarantees that the value being passed into the callback func is the most updated.
 - convention is to use prevStateValue and an arrow function like in add() and subtract():
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 using a an arrow callback function with prevState:
 
 ```
@@ -155,7 +158,8 @@ export default function App() {
 }
 ```
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 using useState to toggle boolean values with ternary operator:
 
 ```
@@ -179,7 +183,8 @@ export default function App() {
 }
 ```
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 working with useState to modify arrays:
 
 ```
@@ -208,7 +213,8 @@ function App() {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 applying state in the form of an object:
 
 ```
@@ -253,7 +259,8 @@ export default function App() {
 }
 ```
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 updating state objects:
 
 - remember to use {} after return to signify returning an object
@@ -306,7 +313,8 @@ export default function App() {
 }
 ```
 
-**_-------example-----------_**
+### **_-------example-----------_**
+
 Setting state from child components:
 
 - note: all properties from custom components that we created are custom properties...
