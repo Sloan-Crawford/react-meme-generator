@@ -1,4 +1,4 @@
-# React AirBnb Experience Clone
+# React Meme Generator
 
 Have fun with this dynamic meme generator built with React.js.
 
