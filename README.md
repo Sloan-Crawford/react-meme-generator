@@ -27,7 +27,7 @@ Have fun with this dynamic meme generator built with React.js.
 
 1. when the app loads for the first time:
 
-- API call to image flip
+- makes an API call to image flip
 - returns an array of 100 meme images that are the most popular at that time
 
 2. clicking the 'get a new meme image button':
@@ -382,3 +382,9 @@ export default function Star(props) {
     )
 }
 ```
+
+### **_-------example-----------_**
+
+A better way to set state:
+
+- If we find ourselves initializing state with a prop value, stop! There's a better way...

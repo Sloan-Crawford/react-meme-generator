@@ -258,3 +258,64 @@ export default function App() {
         </main>
     )
 }
+
+-------example-----------
+Setting state from child components:
+- note: all properties from custom components that we created are custom properties...
+- so the onClick attribute will not register on custom components
+- event listeners like onClick only exist on native DOM elements (like main, article, div, img...)
+
+process in this example:
+- in the parent component (App), create state element (contact). Then create state setter function (toggleFavorite) and pass it to custom component (Star) via a custom prop (called handleClick), then within the component, it is receiving props and then registering a real event listener (onClick) who's functional value is the function it received through props.handleClick.
+
+App.js:
+import React from "react"
+import Star from "./Star"
+
+export default function App() {
+    const [contact, setContact] = React.useState({
+        firstName: "John",
+        lastName: "Doe",
+        phone: "+1 (719) 555-1212",
+        email: "itsmyrealname@example.com",
+        isFavorite: true
+    })
+    
+    function toggleFavorite() {
+        setContact(prevContact => ({
+            ...prevContact,
+            isFavorite: !prevContact.isFavorite
+        }))
+    }
+    
+    return (
+        <main>
+            <article className="card">
+                <img src="./images/user.png" className="card--image" />
+                <div className="card--info">
+                    <Star isFilled={contact.isFavorite} handleClick={toggleFavorite} />
+                    <h2 className="card--name">
+                        {contact.firstName} {contact.lastName}
+                    </h2>
+                    <p className="card--contact">{contact.phone}</p>
+                    <p className="card--contact">{contact.email}</p>
+                </div>
+                
+            </article>
+        </main>
+    )
+}
+
+Star.js:
+import React from "react"
+
+export default function Star(props) {
+    const starIcon = props.isFilled ? "star-filled.png" : "star-empty.png"
+    return (
+        <img 
+            src={`../images/${starIcon}`} 
+            className="card--favorite"
+            onClick={props.handleClick}
+        />
+    )
+}
