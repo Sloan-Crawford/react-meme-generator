@@ -385,6 +385,340 @@ export default function Star(props) {
 
 ### **_-------example-----------_**
 
-A better way to set state:
+A better way to set state: Derived
 
 - If we find ourselves initializing state with a prop value, stop! There's a better way...
+
+### **_-------example-----------_**
+
+**Conditional rendering with &&:**
+
+- used when we want something to display or not display
+
+```
+{props.setup && <h3>{props.setup}</h3>}
+{isShown && <p>{props.punchline}</p>}
+```
+
+If props.setup evaluates to true, the h3 element will be rendered.
+If isShown evaluates to true, the p element will be rendered.
+
+**Conditional rendering with ternary:**
+
+- used when we want something to toggle what is displayed
+
+```
+<button onClick={toggleShown}>{isShown ? "Hide" : "Show"} Punchline</button>
+```
+
+If isShown evaluates to true, the button will display "Hide Punchline"
+If isShown evaluates to false, the button will display "Show Punchline"
+
+- if situation is more complex than two or three simple options use a separate if statement with a series of if else blocks or a switch block.
+
+**Conditional rendering with nested ternaries:**
+
+- a better way to show multiple options using one code black and multiple ternaries
+
+```
+import React from "react"
+
+export default function App() {
+    const [messages, setMessages] = React.useState(["a", "b"])
+
+    return (
+        <div>
+            {
+                messages.length === 0 ?
+                <h1>You're all caught up!</h1> :
+                <h1>You have {messages.length} unread {messages.length > 1 ? "messages" : "message"} </h1>
+            }
+        </div>
+    )
+}
+```
+
+If messages.length is 0, it renders "You're all caught up"
+If messages.length is 1, it renders "You have 1 message"
+If messages.length is > 1, it renders "You have n messages"
+
+### **_-------example-----------_**
+
+**Forms**
+
+- for up to three or four inputs to a form, we can save state this way:
+
+```
+import React from "react"
+
+export default function Form() {
+    const [firstName, setFirstName] = React.useState("")
+    const [lastName, setLastName] = React.useState("")
+
+    function handleFirstNameChange(event) {
+        setFirstName(event.target.value)
+    }
+
+    function handleLastNameChange(event) {
+        setLastName(event.target.value)
+    }
+
+    return (
+        <form>
+            <input
+                type="text"
+                placeholder="First Name"
+                onChange={handleFirstNameChange}
+            />
+            <input
+                type="text"
+                placeholder="Last Name"
+                onChange={handleLastNameChange}
+            />
+        </form>
+    )
+}
+```
+
+**Forms**
+
+- for more than three or four inputs, save state as an object:
+
+steps:
+
+- create state for formData and initialize it to an object with properties and empty string values
+- in the returned jsx form, add a name for each input that matches the state property names
+- add an onChange attribute that calls a reference to a handleChange function
+- create a handleChange function above that takes an event as a param...
+- and calls setFormData using prevFormData as a param for a callback function. open the body up...
+- return an object that first spreads the prevFormData and then changes one event prop:
+- use the object prop chain event.target.name and set the value to event.target.value
+- trick: surround the event.target.name with [] to remove syntax error (new for ES6)
+- important to make it a CONTROLLED COMPONENT, so that its State is the single source of truth, the single thing driving what occurs in the form inputs. To do this:
+- add a value attribute to each input. in curly braces, assign it to state.propName
+
+```
+import React from "react"
+
+export default function Form() {
+    const [formData, setFormData] = React.useState(
+        {firstName: "", lastName: ""}
+    )
+
+    console.log(formData)
+
+    function handleChange(event) {
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+
+    return (
+        <form>
+            <input
+                type="text"
+                placeholder="First Name"
+                onChange={handleChange}
+                name="firstName"
+                value={formData.firstName}
+            />
+            <input
+                type="text"
+                placeholder="Last Name"
+                onChange={handleChange}
+                name="lastName"
+                value={formData.lastName}
+
+            />
+        </form>
+    )
+}
+```
+
+- It's best practice to modify the event handler function like this:
+- destructure the event name and value from event.target
+- add the destructured name and value after the copied return content...
+
+```
+function handleChange(event) {
+        const {name, value} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+            }
+        })
+    }
+```
+
+**Forms**
+
+Some other differences for forms in React:
+
+- the text area element is changed to be self-closing and the value is set in curly braces
+
+```
+<textarea
+    type="textarea"
+    placeholder="comments"
+    onChange={handleChange}
+    name="comments"
+    value={formData.comments}
+/>
+```
+
+**Checkboxes and Labels**
+
+- checkboxes are weird. They are a type of input, not their own form element.
+- they take in boolean values in an attribute called checked
+- to use checkboxes in React, we need to:
+- add a default value of true or false in state
+- destructure type and checked in setter event function.
+- add ternary to the return to assign name to either checked or value
+
+- For Labels:
+- best practice is to keep the label separate from the element its tied to, but tie them together by setting the label's htmlFor attribute to the id of the element ("isFriendly), as opposed to nesting the label within the children of the element.
+
+```
+function handleChange(event) {
+    const {name, value, type, checked} = event.target
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [name]: type === "checkbox" ? checked : value
+        }
+    })
+}
+
+<input
+    type="checkbox"
+    id="isFriendly"
+    checked={formData.isFriendly}
+    onChange={handleChange}
+    name="isFriendly"
+/>
+<label htmlFor="isFriendly">Are you friendly?</label>
+```
+
+**Radio Buttons**
+
+- pay attention to the value for radio buttons
+  [radio buttons scrimba tutorial](https://scrimba.com/learn/learnreact/forms-in-react-radio-buttons-co14c423dbc2026a7a2b997a2)
+- radio buttons are controlled in the same way that checkboxes are controlled but we need to make the value of checked equate as a boolean by comparing the object property name to the value property value. yeah.
+
+**Select Box**
+
+- pay attention to the way to update State and the first option from the dropdown list
+  [select box scrimba tutorial](https://scrimba.com/learn/learnreact/forms-in-react-select-option-co83b466d859cf1d6c4b3efaf)
+
+**Submitting the form**
+
+- in html5 a button element inside of a form acts like an input element with the type submit. yay.
+- this will default to having type="submit" if it's a child of a form element:
+
+```
+<button>Submit</button>
+```
+
+- now we can add a handleSubmit event handler function reference at the top of the form
+
+```
+<form onSubmit={handleSubmit}>
+```
+
+- then create the handleSubmit event handler function above the component return.
+- pass in the event object so that we can prevent the default action of refreshing and adding all the values as query strings in the url. not what we want.
+- this is then where we would have a submit to API function, and we would pass in the whole formData since it has been updating already with each key stroke in the form inputs.
+
+```
+function handleSubmit(event) {
+    event.preventDefault()
+    // submitToApi(formData)
+    console.log(formData)
+}
+```
+
+### **_-------example-----------_**
+
+**Form Test**
+
+```
+import React from "react"
+
+export default function App() {
+    const [formData, setFormData] = React.useState({
+        email: "",
+        password: "",
+        cPassword: "",
+        okayToEmail : false
+    })
+
+    function handleChange(event) {
+        const {name, value, type, checked} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value
+            }
+        })
+    }
+
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log(formData.password === formData.cPassword ? "Successfully Signed Up" : "passwords do not match")
+        formData.okayToEmail && formData.password === formData.cPassword ? console.log("Thanks for signing up!"): ""
+    }
+
+    return (
+        <div className="form-container">
+            <form className="form" onSubmit={handleSubmit}>
+                <input
+                    type="email"
+                    placeholder="Email address"
+                    className="form--input"
+                    name="email"
+                    onChange={handleChange}
+                    value={formData.email}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    className="form--input"
+                    name="password"
+                    onChange={handleChange}
+                    value={formData.password}
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm password"
+                    className="form--input"
+                    name="cPassword"
+                    onChange={handleChange}
+                    value={formData.cPassword}
+                />
+
+                <div className="form--marketing">
+                    <input
+                        id="okayToEmail"
+                        type="checkbox"
+                        name="okayToEmail"
+                        onChange={handleChange}
+                        checked={formData.okayToEmail}
+
+                    />
+                    <label htmlFor="okayToEmail">I want to join the newsletter</label>
+                </div>
+                <button
+                    className="form--submit"
+                >
+                    Sign up
+                </button>
+            </form>
+        </div>
+    )
+}
+```
