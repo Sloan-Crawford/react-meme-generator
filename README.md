@@ -10,7 +10,7 @@ Have fun with this dynamic meme generator built with React.js.
 
 - Effective use of Routing, custom Components and Pagination
 - Utilization of Prism.js to show highlighted code
-- Hooks: useState()
+- Hooks: useState(), useEffect()
 - published on Netlify through GitHub repo
 
 **Skills**:
