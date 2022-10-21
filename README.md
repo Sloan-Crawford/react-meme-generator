@@ -8,15 +8,14 @@ Have fun with this dynamic meme generator built with React.js.
 - A well-organized website with a professional folder system
 - A responsive, modern design
 
-- Effective use of Routing, custom Components and Pagination
+- Effective use of Routing, Components and Pagination
 - Utilization of Prism.js to show highlighted code
-- Hooks: useState()
+- Hooks: useState(), useEffect()
 - published on Netlify through GitHub repo
 
 **Skills**:
 
-- Effective use of React library and integration of Prism.js
-- Utilization of professional folder organization with src components, context, data, hooks, pages and utilities.
+- Effective use of an external API and integration of Prism.js
 - Clear, maintainable, and scalable code with responsive layout and architecture
 
 ### Demo More projects by Sloan Crawford on his [Portfolio Website](https://sloan-crawford-professional-portfolio.netlify.app/)
