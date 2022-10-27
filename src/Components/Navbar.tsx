@@ -1,5 +1,5 @@
 import React from 'react';
-import pic from "../Images/icons8-trollface-96.png"
+import pic from "Images/icons8-trollface-96.png"
 import pic2 from "../Images/code-icon-peach.svg";
 import { Link } from "react-router-dom";
 import image from "../Images/github-logo-with-text.png";
