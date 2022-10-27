@@ -1,6 +1,6 @@
 # React Meme Generator
 
-Have fun with this dynamic meme generator built with React.js.
+Have fun with this dynamic meme generator built with React.js and Typescript.
 
 **Key features**:
 
