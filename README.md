@@ -722,4 +722,28 @@ export default function App() {
 }
 ```
 
-<!-- Updated branch to test pull request process -->
+### **_-------Notes for branching, pull requests and TS Update-----------_**
+
+**To Branch:**
+
+- in Terminal, navigate to project folder
+- git branch -a (to see list of branches)
+- git checkout -b "name_of_new_branch"
+- code . (will open all files in current folder on VS Code)
+- make changes...
+- then commit as usual in terminal or github desktop:
+- git add .
+- git commit -m "commit message"
+- git push .
+- create pull request
+- solve merge conflicts
+- delete branch when complete
+
+**TS Update:**
+
+- In terminal import typescript and the related type files:
+- npm add typescript @types/node @types/react @types/react-dom @types/jest
+- then convert individual files from .js to .tsx files (.tsx is for files with JSX within them)
+- do a typescript configuration initialization (creates a tsconfig.json file):
+- npx tsc --init
+- we can't have both jsconfig and tsconfig. If we do, go into jsconfig and copy any settings with the compilerOptions, paste them within the tsconfig and delete the entire jsconfig file.
